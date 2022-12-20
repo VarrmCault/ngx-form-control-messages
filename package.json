@@ -1,6 +1,6 @@
 {
   "name": "@varrmcault/ngx-form-control-messages",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "NgxFormControlMessages is a component used to show a FormControl error messages without repeating yourself accross the application",
   "bugs": {
     "url": "https://github.com/VarrmCault/ngx-form-control-messages/issues"
