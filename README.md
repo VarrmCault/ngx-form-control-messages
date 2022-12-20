@@ -1,27 +1,85 @@
 # NgxFormControlMessages
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.3.
+Built on Angular 15 but should work with any previous version (feel free to fork).
 
-## Development server
+NgxFormControlMessages is a component used to show a `FormField` or `FormGroup` error messages without repeating yourself accross the application.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Usage
 
-## Code scaffolding
+The examples below use Angular Material components but `ngx-form-control-messages` can work with any library or custom design. The component only handles the text content and has no design requirements.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Default error messages
 
-## Build
+```
+<form [formGroup]="form">
+    <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" required>
+        <mat-error>
+            <ngx-form-control-messages [field]="form.controls.email"></ngx-form-control-messages>
+        </mat-error>
+    </mat-form-field>
+</form>
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Custom error messages
 
-## Running unit tests
+```
+<form [formGroup]="form">
+    <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" required>
+        <mat-error>
+            <ngx-form-control-messages [field]="form.controls.password" [messages]="customErrors"></ngx-form-control-messages>
+        </mat-error>
+    </mat-form-field>
+</form>
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+With `customErrors` defined in the component's Typescript file:
 
-## Running end-to-end tests
+```
+customErrors: { [key: string]: string } = {
+    passwordStrength: 'Password must be at least 10 characters long'
+};
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Filtering/Sorting errors
 
-## Further help
+By default, the component will select the first error found for the field. The `handledErrors` property allows you to filter messages and/or manually select which message is the most important to show. Be aware that you have to set an exhaustive list of the errors you want to handle if you use this property.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```
+<form [formGroup]="form">
+    <mat-form-field>
+        <mat-label>Some custom field</mat-label>
+        <input matInput formControlName="customField" required>
+        <mat-error>
+            <ngx-form-control-messages [field]="form.controls.password" [messages]="customErrors" [handledErrors]=['required', 'customError']></ngx-form-control-messages>
+        </mat-error>
+    </mat-form-field>
+</form>
+```
+
+## Configuration
+
+The component isn't preconfigured with default messages, you have to configure your own when importing the module:
+
+```
+/* ... */
+import { NgxFormControlMessagesModule, NgxFormControlMessages } from '@varrmcault/ngx-form-control-messages';
+
+const defaultMessages: NgxFormControlMessages = {
+    required: 'Field required',
+    email: 'Invalid email',
+    /* ... */
+};
+
+@NgModule({
+  /* ... */
+  imports: [
+    /* ... */
+    NgxFormControlMessagesModule.forRoot(defaultMessages)
+  ]
+})
+export class AppModule { }
+```

@@ -1,6 +1,6 @@
 {
   "name": "@varrmcault/ngx-form-control-messages",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "NgxFormControlMessages is a component used to show a FormControl error messages without repeating yourself accross the application",
   "bugs": {
     "url": "https://github.com/VarrmCault/ngx-form-control-messages/issues"
@@ -14,16 +14,21 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "build:demo": "ng build",
+    "watch:demo": "ng build --watch --configuration development",
     "build": "ng build ngx-form-control-messages",
-    "watch": "ng build --watch --configuration development",
+    "watch": "ng build ngx-form-control-messages --watch",
     "test": "ng test"
   },
   "private": false,
   "dependencies": {
+    "@angular/animations": "^15.0.0",
+    "@angular/cdk": "^15.0.3",
     "@angular/common": "^15.0.0",
     "@angular/compiler": "^15.0.0",
     "@angular/core": "^15.0.0",
     "@angular/forms": "^15.0.0",
+    "@angular/material": "^15.0.3",
     "@angular/platform-browser": "^15.0.0",
     "@angular/platform-browser-dynamic": "^15.0.0",
     "rxjs": "~7.5.0",

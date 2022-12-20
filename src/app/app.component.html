@@ -1,0 +1,100 @@
+<div class="app">
+  <div class="title">NgxFormControlMessages</div>
+
+  <h1>Configuration</h1>
+  <p>Preconfigure the default messages in your <i>app.module.ts</i>:</p>
+  <pre>
+    {{ configurationHtml }}
+  </pre>
+
+  <div class="side-note">
+    <h2>Side note regarding usage with Angular Material</h2>
+    <p>
+      NgxFormControlMessages is only responsible for selecting a message to
+      display. It does look for the "touched" property on
+      <i>FormControl</i> fields but whether or not the
+      <i>MatFormField</i> displays an error depends on Angular Material. If you
+      pre-fill your form with wrong values and expect the error to show right
+      away, you can have a look at
+      <a href="https://material.angular.io/components/input/api#MatInput"
+        >MatInput's errorStateMatcher</a
+      >
+      configuration.
+    </p>
+  </div>
+
+  <h1>Default error messages</h1>
+  <form [formGroup]="defaultFormMessages">
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email" required />
+      <mat-error>
+        <ngx-form-control-messages
+          [field]="defaultFormMessages.controls.email"
+        ></ngx-form-control-messages>
+      </mat-error>
+    </mat-form-field>
+  </form>
+
+  <button
+    mat-button
+    color="primary"
+    (click)="showDefaultErrorMessagesCode = !showDefaultErrorMessagesCode"
+  >
+    Show/Hide code
+  </button>
+  <ng-container *ngIf="showDefaultErrorMessagesCode">
+    <p>
+      Default error messages don't require any additional configuration. Simply
+      bind the FormControl to the component:
+    </p>
+    <pre>
+      {{ defaultExampleHtml }}
+    </pre>
+  </ng-container>
+
+  <h1>Custom error messages</h1>
+  <form [formGroup]="customFormMessages">
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email" required />
+      <mat-error>
+        <ngx-form-control-messages
+          [field]="customFormMessages.controls.email"
+        ></ngx-form-control-messages>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Birth year</mat-label>
+      <input matInput type="number" formControlName="birthYear" required />
+      <mat-hint>Try to be younger than that!</mat-hint>
+      <mat-error>
+        <ngx-form-control-messages
+          [field]="customFormMessages.controls.birthYear"
+          [messages]="customErrors"
+        ></ngx-form-control-messages>
+      </mat-error>
+    </mat-form-field>
+  </form>
+
+  <button
+    mat-button
+    color="primary"
+    (click)="showCustomErrorMessagesCode = !showCustomErrorMessagesCode"
+  >
+    Show/Hide code
+  </button>
+  <ng-container *ngIf="showCustomErrorMessagesCode">
+    <p>
+      Custom error messages require you to provide the
+      <i>messages</i> property:
+    </p>
+    <pre>
+      {{ defaultExampleHtml }}
+    </pre>
+    <p>With the <i>customErrors</i> object declared this way:</p>
+    <pre>
+      {{ customExampleConfigHtml }}
+    </pre>
+  </ng-container>
+</div>
