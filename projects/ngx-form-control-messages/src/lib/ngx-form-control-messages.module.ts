@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import {
   NgxFormControlMessages,
@@ -7,7 +8,7 @@ import { NgxFormControlMessagesComponent } from './ngx-form-control-messages.com
 
 @NgModule({
   declarations: [NgxFormControlMessagesComponent],
-  imports: [],
+  imports: [NgIf],
   exports: [NgxFormControlMessagesComponent],
 })
 export class NgxFormControlMessagesModule {
